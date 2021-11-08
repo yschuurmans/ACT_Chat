@@ -13,6 +13,7 @@ using ACT_FFXIV.Aetherbridge;
 using ACT_Chat.ACT;
 using ACT_Chat.Models.Chat;
 using ACT_Chat.Models.Log;
+using ACT_Chat.Logic;
 
 [assembly: AssemblyTitle("ACT_Chat")]
 [assembly: AssemblyDescription("ACT_Chat plugin, improving the FFXIV chat system one chatbox at a time")]
@@ -23,8 +24,16 @@ namespace ACT_Chat
 {
     public class ACT_Chat : UserControl, IActPluginV1
     {
-        private bool debug = true;
+        public CheckBox config_cb_MinimizeOnClose;
+        public CheckBox config_cb_OpenOnStartup;
+        public TextBox config_tb_ChatButtonLoc;
 
+        private Button btn_OpenChatList;
+        private Label lbl_CurrentWorldDesc;
+        private TextBox tb_CurrentWorld;
+        private Button btn_SpoofMsg;
+        private Label lbl_Title;
+        private Label lbl_Settings;
 
         #region Designer Created Code (Avoid editing)
         /// <summary> 
@@ -55,23 +64,25 @@ namespace ACT_Chat
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.lbl_Title = new System.Windows.Forms.Label();
             this.btn_OpenChatList = new System.Windows.Forms.Button();
             this.config_cb_OpenOnStartup = new System.Windows.Forms.CheckBox();
             this.lbl_CurrentWorldDesc = new System.Windows.Forms.Label();
             this.tb_CurrentWorld = new System.Windows.Forms.TextBox();
             this.config_cb_MinimizeOnClose = new System.Windows.Forms.CheckBox();
             this.btn_SpoofMsg = new System.Windows.Forms.Button();
+            this.config_tb_ChatButtonLoc = new System.Windows.Forms.TextBox();
+            this.lbl_Settings = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // label1
+            // lbl_Title
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(273, 13);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "WIMFFF -- WoW Instant Messager but For Final Fantasy";
+            this.lbl_Title.AutoSize = true;
+            this.lbl_Title.Location = new System.Drawing.Point(3, 0);
+            this.lbl_Title.Name = "lbl_Title";
+            this.lbl_Title.Size = new System.Drawing.Size(273, 13);
+            this.lbl_Title.TabIndex = 0;
+            this.lbl_Title.Text = "WIMFFF -- WoW Instant Messager but For Final Fantasy";
             // 
             // btn_OpenChatList
             // 
@@ -86,7 +97,7 @@ namespace ACT_Chat
             // config_cb_OpenOnStartup
             // 
             this.config_cb_OpenOnStartup.AutoSize = true;
-            this.config_cb_OpenOnStartup.Location = new System.Drawing.Point(6, 84);
+            this.config_cb_OpenOnStartup.Location = new System.Drawing.Point(6, 121);
             this.config_cb_OpenOnStartup.Name = "config_cb_OpenOnStartup";
             this.config_cb_OpenOnStartup.Size = new System.Drawing.Size(117, 17);
             this.config_cb_OpenOnStartup.TabIndex = 2;
@@ -115,7 +126,7 @@ namespace ACT_Chat
             // config_cb_MinimizeOnClose
             // 
             this.config_cb_MinimizeOnClose.AutoSize = true;
-            this.config_cb_MinimizeOnClose.Location = new System.Drawing.Point(59, 312);
+            this.config_cb_MinimizeOnClose.Location = new System.Drawing.Point(547, 322);
             this.config_cb_MinimizeOnClose.Name = "config_cb_MinimizeOnClose";
             this.config_cb_MinimizeOnClose.Size = new System.Drawing.Size(124, 17);
             this.config_cb_MinimizeOnClose.TabIndex = 6;
@@ -125,7 +136,7 @@ namespace ACT_Chat
             // 
             // btn_SpoofMsg
             // 
-            this.btn_SpoofMsg.Location = new System.Drawing.Point(59, 335);
+            this.btn_SpoofMsg.Location = new System.Drawing.Point(547, 345);
             this.btn_SpoofMsg.Name = "btn_SpoofMsg";
             this.btn_SpoofMsg.Size = new System.Drawing.Size(111, 23);
             this.btn_SpoofMsg.TabIndex = 7;
@@ -134,17 +145,36 @@ namespace ACT_Chat
             this.btn_SpoofMsg.Visible = false;
             this.btn_SpoofMsg.Click += new System.EventHandler(this.btn_SpoofMsg_Click);
             // 
+            // config_tb_ChatButtonLoc
+            // 
+            this.config_tb_ChatButtonLoc.Location = new System.Drawing.Point(547, 296);
+            this.config_tb_ChatButtonLoc.Name = "config_tb_ChatButtonLoc";
+            this.config_tb_ChatButtonLoc.Size = new System.Drawing.Size(100, 20);
+            this.config_tb_ChatButtonLoc.TabIndex = 8;
+            this.config_tb_ChatButtonLoc.Visible = false;
+            // 
+            // lbl_Settings
+            // 
+            this.lbl_Settings.AutoSize = true;
+            this.lbl_Settings.Location = new System.Drawing.Point(3, 105);
+            this.lbl_Settings.Name = "lbl_Settings";
+            this.lbl_Settings.Size = new System.Drawing.Size(45, 13);
+            this.lbl_Settings.TabIndex = 9;
+            this.lbl_Settings.Text = "Settings";
+            // 
             // ACT_Chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.lbl_Settings);
+            this.Controls.Add(this.config_tb_ChatButtonLoc);
             this.Controls.Add(this.btn_SpoofMsg);
             this.Controls.Add(this.config_cb_MinimizeOnClose);
             this.Controls.Add(this.tb_CurrentWorld);
             this.Controls.Add(this.lbl_CurrentWorldDesc);
             this.Controls.Add(this.config_cb_OpenOnStartup);
             this.Controls.Add(this.btn_OpenChatList);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.lbl_Title);
             this.Name = "ACT_Chat";
             this.Size = new System.Drawing.Size(686, 384);
             this.ResumeLayout(false);
@@ -154,14 +184,6 @@ namespace ACT_Chat
 
         #endregion
 
-        public CheckBox config_cb_MinimizeOnClose;
-        public CheckBox config_cb_OpenOnStartup;
-
-        private Button btn_OpenChatList;
-        private Label lbl_CurrentWorldDesc;
-        private TextBox tb_CurrentWorld;
-        private Button btn_SpoofMsg;
-        private Label label1;
 
         #endregion
         public ACT_Chat()
@@ -228,11 +250,13 @@ namespace ACT_Chat
             //Time-unsensitive tasks
             if (config_cb_OpenOnStartup.Checked)
             {
-                OpenChatList();
+                OpenChatButton();
             }
 
 #if DEBUG
             btn_SpoofMsg.Visible = true;
+            config_tb_ChatButtonLoc.Visible = true;
+            config_cb_OpenOnStartup.Visible = true;
 #endif
         }
 
@@ -269,7 +293,8 @@ namespace ACT_Chat
             //xmlSettings.AddControlSetting(textBox1.Name, textBox1);
             xmlSettings.AddControlSetting(config_cb_OpenOnStartup.Name, config_cb_OpenOnStartup);
             xmlSettings.AddControlSetting(tb_CurrentWorld.Name, tb_CurrentWorld);
-            xmlSettings.AddControlSetting(config_cb_MinimizeOnClose.Name, config_cb_MinimizeOnClose);
+            xmlSettings.AddControlSetting(config_cb_MinimizeOnClose.Name, config_cb_MinimizeOnClose); 
+            xmlSettings.AddControlSetting(config_tb_ChatButtonLoc.Name, config_tb_ChatButtonLoc); 
 
             if (File.Exists(settingsFile))
             {
@@ -329,12 +354,12 @@ namespace ACT_Chat
             {
                 ChatList.Show();
                 ChatList.WindowState = FormWindowState.Normal;
-                ChatList.Location = MousePosition;
                 return;
             }
 
             ChatList = new ChatList();
             ChatList.TopMost = true;
+            ChatList.Location = MousePosition;
             ChatList.Show();
         }
 
@@ -353,7 +378,17 @@ namespace ACT_Chat
             ChatButton = new ChatButton();
             ChatButton.TopMost = true;
             ChatButton.Show();
-            ChatButton.Location = MousePosition;
+
+            var chatButtonLoc = Instance.config_tb_ChatButtonLoc.Text.ToLocation();
+            if (chatButtonLoc != null)
+            {
+                ChatButton.Location = chatButtonLoc.Value;
+            }
+            else
+            {
+                ChatButton.Location = MousePosition;
+
+            }
             ChatButton.Size = ChatButton.MaximumSize;
         }
 

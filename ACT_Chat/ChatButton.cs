@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ACT_Chat.Logic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -58,7 +59,6 @@ namespace ACT_Chat
             {
                 this.Location = new Point(Cursor.Position.X + mouseOffset.Value.X, Cursor.Position.Y + mouseOffset.Value.Y);
             }
-
         }
 
         private int calculateDistanceSqrt(Point point1, Point point2)
@@ -76,6 +76,14 @@ namespace ACT_Chat
             lastMessageCount = messageCount;
 
             this.Refresh();
+        }
+
+        private void ChatButton_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(this.Location != null)
+            {
+                ACT_Chat.Instance.config_tb_ChatButtonLoc.Text = this.Location.ToSimpleString();
+            }
         }
     }
 }

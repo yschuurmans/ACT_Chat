@@ -39,9 +39,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_OpenChat.BackgroundImage = global::ACT_Chat.Properties.Resources.chat_icon_png_8;
             this.btn_OpenChat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_OpenChat.Location = new System.Drawing.Point(0, 0);
+            this.btn_OpenChat.Location = new System.Drawing.Point(-5, -5);
             this.btn_OpenChat.Name = "btn_OpenChat";
-            this.btn_OpenChat.Size = new System.Drawing.Size(50, 50);
+            this.btn_OpenChat.Size = new System.Drawing.Size(60, 60);
             this.btn_OpenChat.TabIndex = 0;
             this.btn_OpenChat.UseVisualStyleBackColor = true;
             this.btn_OpenChat.Click += new System.EventHandler(this.btn_OpenChat_Click);
@@ -55,7 +55,7 @@
             this.lbl_MessageCount.AutoSize = true;
             this.lbl_MessageCount.BackColor = System.Drawing.Color.Firebrick;
             this.lbl_MessageCount.ForeColor = System.Drawing.Color.White;
-            this.lbl_MessageCount.Location = new System.Drawing.Point(30, 10);
+            this.lbl_MessageCount.Location = new System.Drawing.Point(29, 6);
             this.lbl_MessageCount.Name = "lbl_MessageCount";
             this.lbl_MessageCount.Size = new System.Drawing.Size(16, 13);
             this.lbl_MessageCount.TabIndex = 1;
@@ -74,6 +74,7 @@
             this.MaximumSize = new System.Drawing.Size(50, 50);
             this.Name = "ChatButton";
             this.Text = "ChatButton";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatButton_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

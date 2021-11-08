@@ -84,11 +84,12 @@
     <Compile Include="ChatList.Designer.cs">
       <DependentUpon>ChatList.cs</DependentUpon>
     </Compile>
-    <Compile Include="ChatManager.cs" />
+    <Compile Include="Logic\ChatManager.cs" />
     <Compile Include="FFXIVWindowManager.cs" />
     <Compile Include="FFXIV_ACT_Plugin\FFXIVACTPluginWrapper.cs" />
     <Compile Include="FFXIV_ACT_Plugin\IFFXIVACTPluginWrapper.cs" />
     <Compile Include="FFXIV_ACT_Plugin\LogLineParser\LogLineParserUtil.cs" />
+    <Compile Include="Logic\LocationMapper.cs" />
     <Compile Include="Models\Chat\ChatMessage.cs" />
     <Compile Include="Models\Chat\ChatParser.cs" />
     <Compile Include="Models\Chat\MessageType.cs" />
