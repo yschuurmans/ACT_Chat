@@ -18,7 +18,7 @@ namespace ACT_Chat
         {
             InitializeComponent();
 
-            cb_MinimizeOnClose.Checked = ACT_Chat.Instance.cb_MinimizeOnClose.Checked;
+            cb_MinimizeOnClose.Checked = ACT_Chat.Instance.config_cb_MinimizeOnClose.Checked;
 
             _openChatWindows = ACT_Chat.Instance.OpenChatWindows;
 
@@ -102,7 +102,7 @@ namespace ACT_Chat
 
         private void cb_MinimizeOnClose_CheckedChanged(object sender, EventArgs e)
         {
-            ACT_Chat.Instance.cb_MinimizeOnClose.Checked = cb_MinimizeOnClose.Checked;
+            ACT_Chat.Instance.config_cb_MinimizeOnClose.Checked = cb_MinimizeOnClose.Checked;
         }
 
         private void ChatList_FormClosed(object sender, FormClosedEventArgs e)

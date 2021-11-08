@@ -57,10 +57,10 @@ namespace ACT_Chat
         {
             this.label1 = new System.Windows.Forms.Label();
             this.btn_OpenChatList = new System.Windows.Forms.Button();
-            this.cb_OpenOnStartup = new System.Windows.Forms.CheckBox();
+            this.config_cb_OpenOnStartup = new System.Windows.Forms.CheckBox();
             this.lbl_CurrentWorldDesc = new System.Windows.Forms.Label();
             this.tb_CurrentWorld = new System.Windows.Forms.TextBox();
-            this.cb_MinimizeOnClose = new System.Windows.Forms.CheckBox();
+            this.config_cb_MinimizeOnClose = new System.Windows.Forms.CheckBox();
             this.btn_SpoofMsg = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -83,15 +83,15 @@ namespace ACT_Chat
             this.btn_OpenChatList.UseVisualStyleBackColor = true;
             this.btn_OpenChatList.Click += new System.EventHandler(this.btn_OpenChatList_Click);
             // 
-            // cb_OpenOnStartup
+            // config_cb_OpenOnStartup
             // 
-            this.cb_OpenOnStartup.AutoSize = true;
-            this.cb_OpenOnStartup.Location = new System.Drawing.Point(6, 84);
-            this.cb_OpenOnStartup.Name = "cb_OpenOnStartup";
-            this.cb_OpenOnStartup.Size = new System.Drawing.Size(117, 17);
-            this.cb_OpenOnStartup.TabIndex = 2;
-            this.cb_OpenOnStartup.Text = "Open list on startup";
-            this.cb_OpenOnStartup.UseVisualStyleBackColor = true;
+            this.config_cb_OpenOnStartup.AutoSize = true;
+            this.config_cb_OpenOnStartup.Location = new System.Drawing.Point(6, 84);
+            this.config_cb_OpenOnStartup.Name = "config_cb_OpenOnStartup";
+            this.config_cb_OpenOnStartup.Size = new System.Drawing.Size(117, 17);
+            this.config_cb_OpenOnStartup.TabIndex = 2;
+            this.config_cb_OpenOnStartup.Text = "Open list on startup";
+            this.config_cb_OpenOnStartup.UseVisualStyleBackColor = true;
             // 
             // lbl_CurrentWorldDesc
             // 
@@ -112,16 +112,16 @@ namespace ACT_Chat
             this.tb_CurrentWorld.TabIndex = 5;
             this.tb_CurrentWorld.Text = "[NotDetectedYet]";
             // 
-            // cb_MinimizeOnClose
+            // config_cb_MinimizeOnClose
             // 
-            this.cb_MinimizeOnClose.AutoSize = true;
-            this.cb_MinimizeOnClose.Location = new System.Drawing.Point(6, 159);
-            this.cb_MinimizeOnClose.Name = "cb_MinimizeOnClose";
-            this.cb_MinimizeOnClose.Size = new System.Drawing.Size(124, 17);
-            this.cb_MinimizeOnClose.TabIndex = 6;
-            this.cb_MinimizeOnClose.Text = "cb_MinimizeOnClose";
-            this.cb_MinimizeOnClose.UseVisualStyleBackColor = true;
-            this.cb_MinimizeOnClose.Visible = false;
+            this.config_cb_MinimizeOnClose.AutoSize = true;
+            this.config_cb_MinimizeOnClose.Location = new System.Drawing.Point(59, 312);
+            this.config_cb_MinimizeOnClose.Name = "config_cb_MinimizeOnClose";
+            this.config_cb_MinimizeOnClose.Size = new System.Drawing.Size(124, 17);
+            this.config_cb_MinimizeOnClose.TabIndex = 6;
+            this.config_cb_MinimizeOnClose.Text = "cb_MinimizeOnClose";
+            this.config_cb_MinimizeOnClose.UseVisualStyleBackColor = true;
+            this.config_cb_MinimizeOnClose.Visible = false;
             // 
             // btn_SpoofMsg
             // 
@@ -139,10 +139,10 @@ namespace ACT_Chat
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.btn_SpoofMsg);
-            this.Controls.Add(this.cb_MinimizeOnClose);
+            this.Controls.Add(this.config_cb_MinimizeOnClose);
             this.Controls.Add(this.tb_CurrentWorld);
             this.Controls.Add(this.lbl_CurrentWorldDesc);
-            this.Controls.Add(this.cb_OpenOnStartup);
+            this.Controls.Add(this.config_cb_OpenOnStartup);
             this.Controls.Add(this.btn_OpenChatList);
             this.Controls.Add(this.label1);
             this.Name = "ACT_Chat";
@@ -154,13 +154,14 @@ namespace ACT_Chat
 
         #endregion
 
+        public CheckBox config_cb_MinimizeOnClose;
+        public CheckBox config_cb_OpenOnStartup;
+
         private Button btn_OpenChatList;
-        private CheckBox cb_OpenOnStartup;
         private Label lbl_CurrentWorldDesc;
         private TextBox tb_CurrentWorld;
-        public CheckBox cb_MinimizeOnClose;
         private Button btn_SpoofMsg;
-        private System.Windows.Forms.Label label1;
+        private Label label1;
 
         #endregion
         public ACT_Chat()
@@ -225,15 +226,14 @@ namespace ACT_Chat
             ActGlobals.oFormActMain.OnLogLineRead += OnLogLineRead;
 
             //Time-unsensitive tasks
-            if(cb_OpenOnStartup.Checked)
+            if (config_cb_OpenOnStartup.Checked)
             {
                 OpenChatList();
             }
 
-            if(debug)
-            {
-                btn_SpoofMsg.Visible = true;
-            }
+#if DEBUG
+            btn_SpoofMsg.Visible = true;
+#endif
         }
 
         void DeInit()
@@ -267,9 +267,9 @@ namespace ACT_Chat
         {
             // Add any controls you want to save the state of
             //xmlSettings.AddControlSetting(textBox1.Name, textBox1);
-            xmlSettings.AddControlSetting(cb_OpenOnStartup.Name, cb_OpenOnStartup);
+            xmlSettings.AddControlSetting(config_cb_OpenOnStartup.Name, config_cb_OpenOnStartup);
             xmlSettings.AddControlSetting(tb_CurrentWorld.Name, tb_CurrentWorld);
-            xmlSettings.AddControlSetting(cb_MinimizeOnClose.Name, cb_MinimizeOnClose);
+            xmlSettings.AddControlSetting(config_cb_MinimizeOnClose.Name, config_cb_MinimizeOnClose);
 
             if (File.Exists(settingsFile))
             {
@@ -364,6 +364,8 @@ namespace ACT_Chat
                 return;
             }
             ChatList.Close();
+            ChatList.Dispose();
+            ChatButton.Close();
             ChatList.Dispose();
             foreach (var window in OpenChatWindows)
             {
