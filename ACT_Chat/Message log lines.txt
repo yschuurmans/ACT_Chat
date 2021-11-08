@@ -1,0 +1,9 @@
+MEssage me > John Doe
+[00:26:16.000] 00:000c:John Doe:test
+
+
+Message John Doe > me 
+[00:27:08.000] 00:000d:▲John Doe:test test
+
+Message in say:
+[00:36:23.000] 00:000a:▲John Doe:test
