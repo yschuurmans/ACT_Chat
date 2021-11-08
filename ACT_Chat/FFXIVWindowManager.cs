@@ -48,5 +48,11 @@ namespace ACT_Chat
                 SetForegroundWindow(windowPointer);
             }
         }
+
+        public static bool IsFFXIVOpen()
+        {
+            var p = Process.GetCurrentProcess();
+            return p.MainModule.ModuleName == "Advanced Combat Tracker.exe" || p.MainModule.ModuleName.Contains("ffxiv");
+        }
     }
 }

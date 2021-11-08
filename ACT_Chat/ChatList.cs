@@ -1,7 +1,9 @@
-﻿using System;
+﻿using ACT_Chat.Logic;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -105,13 +107,14 @@ namespace ACT_Chat
             ACT_Chat.Instance.config_cb_MinimizeOnClose.Checked = cb_MinimizeOnClose.Checked;
         }
 
-        private void ChatList_FormClosed(object sender, FormClosedEventArgs e)
-        {
-        }
-
         private void ChatList_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(cb_MinimizeOnClose.Checked)
+            if (this.Location != null)
+            {
+                ACT_Chat.Instance.config_tb_ChatListLoc.Text = this.Location.ToSimpleString();
+            }
+
+            if (cb_MinimizeOnClose.Checked)
             {
                 ACT_Chat.Instance.OpenChatButton();
                 this.Hide();

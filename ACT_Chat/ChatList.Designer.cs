@@ -97,7 +97,6 @@ namespace ACT_Chat
             this.Name = "ChatList";
             this.Text = "ChatList";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ChatList_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatList_FormClosed);
             this.Load += new System.EventHandler(this.ChatList_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
