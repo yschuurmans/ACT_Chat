@@ -44,9 +44,16 @@ jobs:
         if-no-files-found: error
         
         
-#     - name: Build project # This would actually build your project, using zip for an example artifact
-#       run: |
-#         zip --junk-paths ACT_Chat ACT_Chat.dll
+    - name: Zip Artifact
+      run: |
+        zip --junk-paths ACT_Chat ACT_Chat.dll
+    - name: Zip Release
+      uses: TheDoctor0/zip-release@0.6.0
+      with:
+        filename: ACT_Chat.zip
+        path: ACT_Chat.dll
+    
+    
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -64,5 +71,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./ACT_Chat.dll
-        asset_name: ACT_Chat.dll
+        asset_path: ./ACT_Chat.zip
+        asset_name: ACT_Chat.zip
+        asset_content_type:  application/zip
