@@ -17,6 +17,8 @@ namespace ACT_Chat
         public string CommandPrefix { get; set; }
         public string Target { get; set; }
 
+        private bool hasPotentialUnreadMessages = true;
+
         public ChatWindow(string targetPerson, string commandPrefix)
         {
             InitializeComponent();
@@ -56,9 +58,12 @@ namespace ACT_Chat
 
         public void AddChatMessage(ChatMessage message)
         {
-            var prefix = message.Type == MessageType.SentTell ? ">> " : "  <<  ";
+            this.Invoke((MethodInvoker)delegate {
+                var prefix = message.Type == MessageType.SentTell ? ">> " : "  <<  ";
 
-            tb_Chatbox.AppendText($"{Environment.NewLine}[{message.TimeStamp.ToString("HH:mm")}]{prefix}{message.Message}");
+                tb_Chatbox.AppendText($"{Environment.NewLine}[{message.TimeStamp.ToString("HH:mm")}]{prefix}{message.Message}");
+                hasPotentialUnreadMessages = true;
+            });
 
         }
 
@@ -70,7 +75,10 @@ namespace ACT_Chat
 
         private void ChatWindow_Activated(object sender, EventArgs e)
         {
+            if (!hasPotentialUnreadMessages) return;
+            
             ACT_Chat.Instance.Manager.MarkAsRead(Target);
+            hasPotentialUnreadMessages = false;
         }
     }
 }

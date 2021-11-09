@@ -63,11 +63,13 @@ namespace ACT_Chat
 
         internal void AddNameToList(string fullName)
         {
-            if(lb_recentTells.Items.Contains(fullName))
-            {
-                lb_recentTells.Items.Remove(fullName);
-            }
-            lb_recentTells.Items.Insert(0, fullName);
+            this.Invoke((MethodInvoker)delegate {
+                if (lb_recentTells.Items.Contains(fullName))
+                {
+                    lb_recentTells.Items.Remove(fullName);
+                }
+                lb_recentTells.Items.Insert(0, fullName);
+            });
         }
 
         private void btn_openChat_Click(object sender, EventArgs e)
@@ -104,14 +106,19 @@ namespace ACT_Chat
 
         private void cb_MinimizeOnClose_CheckedChanged(object sender, EventArgs e)
         {
-            ACT_Chat.Instance.config_cb_MinimizeOnClose.Checked = cb_MinimizeOnClose.Checked;
+            ACT_Chat.Instance.Invoke((MethodInvoker)delegate {
+                ACT_Chat.Instance.config_cb_MinimizeOnClose.Checked = cb_MinimizeOnClose.Checked;
+            });
         }
 
         private void ChatList_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.Location != null)
             {
-                ACT_Chat.Instance.config_tb_ChatListLoc.Text = this.Location.ToSimpleString();
+                var simpleString = this.Location.ToSimpleString();
+                ACT_Chat.Instance.Invoke((MethodInvoker)delegate {
+                    ACT_Chat.Instance.config_tb_ChatListLoc.Text = simpleString;
+                });
             }
 
             if (cb_MinimizeOnClose.Checked)

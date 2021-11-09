@@ -290,12 +290,14 @@ namespace ACT_Chat
 
         public void UpdateCurrentWorld()
         {
-            var player = _ffxivACTPluginWrapper.GetCurrentCombatant();
-            if (tb_CurrentWorld.Text != player.WorldName)
-            {
-                tb_CurrentWorld.Text = player.WorldName;
-                Manager.UpdateDefaultWorld(World.FindWorld(player.WorldName) ?? Worlds.Odin);
-            }
+            this.Invoke((MethodInvoker)delegate {
+                var player = _ffxivACTPluginWrapper.GetCurrentCombatant();
+                if (tb_CurrentWorld.Text != player.WorldName)
+                {
+                    tb_CurrentWorld.Text = player.WorldName;
+                    Manager.UpdateDefaultWorld(World.FindWorld(player.WorldName) ?? Worlds.Odin);
+                }
+            });
         }
 
         void LoadSettings()
@@ -393,7 +395,9 @@ namespace ACT_Chat
             }
             else
             {
-                ChatButton.Show();
+                ChatButton.Invoke((MethodInvoker)delegate {
+                    ChatButton.Show();
+                });
                 return;
             }
 

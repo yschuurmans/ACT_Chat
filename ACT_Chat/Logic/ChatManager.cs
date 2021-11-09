@@ -40,7 +40,10 @@ namespace ACT_Chat.Logic
                 ACT_Chat.Instance.OpenChatWindows[message.Target.FullName].AddChatMessage(message);
             }
 
-            ACT_Chat.Instance.ChatList.AddNameToList(message.Target.FullName);
+            if(ACT_Chat.Instance.ChatList != null && !ACT_Chat.Instance.ChatList.IsDisposed)
+            {
+                ACT_Chat.Instance.ChatList.AddNameToList(message.Target.FullName);
+            }
         }
 
 
@@ -86,8 +89,11 @@ namespace ACT_Chat.Logic
         private void RefreshUnread()
         {
             int amountUnread =
-                SavedChatMessages.SelectMany(x => x.Value)
-                .Where(x => x.Unread).Count();
+                SavedChatMessages
+                .Where(x=>x.Value.Last().Unread)
+                .SelectMany(x=>x.Value)
+                .Where(x=>x.Unread)
+                .Count();
 
             ACT_Chat.Instance?.ChatButton?.SetMessageCount(amountUnread);
         }
