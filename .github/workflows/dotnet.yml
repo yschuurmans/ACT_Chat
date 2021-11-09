@@ -43,10 +43,6 @@ jobs:
         path: ACT_Chat\bin\Release\ACT_Chat.dll
         if-no-files-found: error
         
-        
-    - name: Zip Artifact
-      run: |
-        zip --junk-paths ACT_Chat ACT_Chat.dll
     - name: Zip Release
       uses: TheDoctor0/zip-release@0.6.0
       with:
