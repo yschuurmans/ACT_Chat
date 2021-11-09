@@ -63,7 +63,8 @@ namespace ACT_Chat
 
         internal void AddNameToList(string fullName)
         {
-            this.Invoke((MethodInvoker)delegate {
+            this.Invoke((MethodInvoker)delegate
+            {
                 if (lb_recentTells.Items.Contains(fullName))
                 {
                     lb_recentTells.Items.Remove(fullName);
@@ -106,7 +107,8 @@ namespace ACT_Chat
 
         private void cb_MinimizeOnClose_CheckedChanged(object sender, EventArgs e)
         {
-            ACT_Chat.Instance.Invoke((MethodInvoker)delegate {
+            ACT_Chat.Instance.Invoke((MethodInvoker)delegate
+            {
                 ACT_Chat.Instance.config_cb_MinimizeOnClose.Checked = cb_MinimizeOnClose.Checked;
             });
         }
@@ -116,9 +118,7 @@ namespace ACT_Chat
             if (this.Location != null)
             {
                 var simpleString = this.Location.ToSimpleString();
-                ACT_Chat.Instance.Invoke((MethodInvoker)delegate {
-                    ACT_Chat.Instance.config_tb_ChatListLoc.Text = simpleString;
-                });
+                ACT_Chat.Instance.config_tb_ChatListLoc.Text = simpleString;
             }
 
             if (cb_MinimizeOnClose.Checked)

@@ -420,14 +420,16 @@ namespace ACT_Chat
 
         private void CloseAllWindows()
         {
-            if (ChatList == null || ChatList.IsDisposed)
+            if (ChatList != null && !ChatList.IsDisposed)
             {
-                return;
+                ChatList.Close();
+                ChatList.Dispose();
             }
-            ChatList.Close();
-            ChatList.Dispose();
-            ChatButton.Close();
-            ChatList.Dispose();
+            if (ChatButton != null && !ChatButton.IsDisposed)
+            {
+                ChatButton.Close();
+                ChatButton.Dispose();
+            }
             foreach (var window in OpenChatWindows)
             {
                 window.Value.Close();
