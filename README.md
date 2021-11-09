@@ -4,7 +4,7 @@
 A small for FFXIV to make your life easier when having multiple individual /tell conversations at the same time.
 
 ## Download
-You can download the most recent version of the plugin in the most recently succeeded build. Click the Build button below, select the most recent **green** build, and click the ACT Plugin button on the bottom:
+You can download the most recent version of the plugin in the most recently succeeded build. Click the Build button above, select the most recent **green** build, and click the ACT Plugin button on the bottom:
 ![github_download_plugin](guide/resources/github_download_plugin.png)
 
 ---
