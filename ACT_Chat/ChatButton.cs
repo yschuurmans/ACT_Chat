@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Linq;
@@ -27,13 +28,15 @@ namespace ACT_Chat
         private void btn_OpenChat_Click(object sender, EventArgs e)
         {
             if (isDragging) return;
+            Debug.Print("btn_OpenChat_Click");
 
             ACT_Chat.Instance.OpenChatList();
-            this.Hide();
+            this.Close();
         }
 
         private void btn_OpenChat_MouseDown(object sender, MouseEventArgs e)
         {
+            Debug.Print("btn_OpenChat_MouseDown");
             var xOffset = this.Location.X - Cursor.Position.X;
             var yOffset = this.Location.Y - Cursor.Position.Y;
             mouseOffset = new Point(xOffset, yOffset);
@@ -42,6 +45,7 @@ namespace ACT_Chat
 
         private void btn_OpenChat_MouseUp(object sender, MouseEventArgs e)
         {
+            Debug.Print("btn_OpenChat_MouseUp");
             mouseOffset = null;
             draggingStart = null;
             isDragging = false;
@@ -50,6 +54,7 @@ namespace ACT_Chat
         private void btn_OpenChat_MouseMove(object sender, MouseEventArgs e)
         {
             if (mouseOffset == null) return;
+            Debug.Print("btn_OpenChat_MouseMove");
             if (!isDragging && calculateDistanceSqrt(draggingStart.Value, e.Location) > 25)
             {
                 isDragging = true;
@@ -69,6 +74,7 @@ namespace ACT_Chat
         {
             if (lastMessageCount == messageCount)
                 return;
+            Debug.Print("SetMessageCount");
 
             this.Invoke((MethodInvoker)delegate
             {
@@ -82,6 +88,7 @@ namespace ACT_Chat
 
         private void ChatButton_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Debug.Print("ChatButton_FormClosing");
             if (this.Location != null)
             {
                 var simpleString = this.Location.ToSimpleString();

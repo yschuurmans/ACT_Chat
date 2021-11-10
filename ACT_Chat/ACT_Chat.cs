@@ -14,6 +14,7 @@ using ACT_Chat.ACT;
 using ACT_Chat.Models.Chat;
 using ACT_Chat.Models.Log;
 using ACT_Chat.Logic;
+using System.Diagnostics;
 
 [assembly: AssemblyTitle("ACT_Chat")]
 [assembly: AssemblyDescription("ACT_Chat plugin, improving the FFXIV chat system one chatbox at a time")]
@@ -244,6 +245,7 @@ namespace ACT_Chat
 
         void Init()
         {
+            Debug.Print("Initializing");
             // Init Services
             _actWrapper = ACTWrapper.GetInstance();
             FFXIVACTPluginWrapper.Initialize(_actWrapper);
@@ -273,6 +275,7 @@ namespace ACT_Chat
 
         void DeInit()
         {
+            Debug.Print("Deinitializing");
             ActGlobals.oFormActMain.OnLogLineRead -= OnLogLineRead;
             CloseAllWindows();
         }
@@ -283,6 +286,7 @@ namespace ACT_Chat
 
             if (logline.Type == LogLineType.TellMessage)
             {
+                Debug.Print("Processing LogMessage");
                 UpdateCurrentWorld();
                 Manager.ProcessLogLine(logline);
             }
@@ -290,25 +294,28 @@ namespace ACT_Chat
 
         public void UpdateCurrentWorld()
         {
-            this.Invoke((MethodInvoker)delegate {
-                var player = _ffxivACTPluginWrapper.GetCurrentCombatant();
-                if (tb_CurrentWorld.Text != player.WorldName)
+            Debug.Print("Updating Current World");
+            var player = _ffxivACTPluginWrapper.GetCurrentCombatant();
+            if (tb_CurrentWorld.Text != player.WorldName)
+            {
+                this.Invoke((MethodInvoker)delegate
                 {
                     tb_CurrentWorld.Text = player.WorldName;
                     Manager.UpdateDefaultWorld(World.FindWorld(player.WorldName) ?? Worlds.Odin);
-                }
-            });
+                });
+            }
         }
 
         void LoadSettings()
         {
+            Debug.Print("Loading Settings");
             // Add any controls you want to save the state of
             //xmlSettings.AddControlSetting(textBox1.Name, textBox1);
             xmlSettings.AddControlSetting(config_cb_OpenOnStartup.Name, config_cb_OpenOnStartup);
             xmlSettings.AddControlSetting(tb_CurrentWorld.Name, tb_CurrentWorld);
-            xmlSettings.AddControlSetting(config_cb_MinimizeOnClose.Name, config_cb_MinimizeOnClose); 
-            xmlSettings.AddControlSetting(config_tb_ChatButtonLoc.Name, config_tb_ChatButtonLoc); 
-            xmlSettings.AddControlSetting(config_tb_ChatListLoc.Name, config_tb_ChatListLoc); 
+            xmlSettings.AddControlSetting(config_cb_MinimizeOnClose.Name, config_cb_MinimizeOnClose);
+            xmlSettings.AddControlSetting(config_tb_ChatButtonLoc.Name, config_tb_ChatButtonLoc);
+            xmlSettings.AddControlSetting(config_tb_ChatListLoc.Name, config_tb_ChatListLoc);
 
             if (File.Exists(settingsFile))
             {
@@ -337,6 +344,7 @@ namespace ACT_Chat
         }
         void SaveSettings()
         {
+            Debug.Print("Saving Settings");
             FileStream fs = new FileStream(settingsFile, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
             XmlTextWriter xWriter = new XmlTextWriter(fs, Encoding.UTF8);
             xWriter.Formatting = Formatting.Indented;
@@ -360,6 +368,7 @@ namespace ACT_Chat
 
         public void OpenChatList()
         {
+            Debug.Print("Opening Chat List");
             if (ChatList == null || ChatList.IsDisposed)
             {
                 ChatList = null;
@@ -383,19 +392,20 @@ namespace ACT_Chat
             else
             {
                 ChatList.Location = MousePosition;
-
             }
         }
 
         public void OpenChatButton()
         {
+            Debug.Print("Opening Chat Button");
             if (ChatButton == null || ChatButton.IsDisposed)
             {
                 ChatButton = null;
             }
             else
             {
-                ChatButton.Invoke((MethodInvoker)delegate {
+                ChatButton.Invoke((MethodInvoker)delegate
+                {
                     ChatButton.Show();
                 });
                 return;
@@ -420,6 +430,7 @@ namespace ACT_Chat
 
         private void CloseAllWindows()
         {
+            Debug.Print("Closing All Windows");
             if (ChatList != null && !ChatList.IsDisposed)
             {
                 ChatList.Close();

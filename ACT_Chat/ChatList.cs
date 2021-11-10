@@ -32,6 +32,8 @@ namespace ACT_Chat
             if (e.Index < 0 || lb_recentTells.Items.Count <= 0)
                 return;
 
+            Debug.Print("lb_recentTells_DrawItem");
+
             Font f = e.Font;
             string label = lb_recentTells.Items[e.Index].ToString();
             if (ACT_Chat.Instance.Manager.HasUnreadMessages(label)) //TODO: Your condition to make text bold
@@ -43,6 +45,7 @@ namespace ACT_Chat
 
         private void ChatList_Load(object sender, EventArgs e)
         {
+            Debug.Print("ChatList_Load");
             foreach (var name in ACT_Chat.Instance.Manager.SavedChatMessages.Keys)
             {
                 lb_recentTells.Items.Add(name);
@@ -51,6 +54,7 @@ namespace ACT_Chat
 
         private void lb_recentTells_SelectedIndexChanged(object sender, EventArgs e)
         {
+            Debug.Print("lb_recentTells_SelectedIndexChanged");
             if (lb_recentTells.SelectedItem != null)
             {
                 btn_openChat.Enabled = true;
@@ -63,6 +67,7 @@ namespace ACT_Chat
 
         internal void AddNameToList(string fullName)
         {
+            Debug.Print("Adding name to list");
             this.Invoke((MethodInvoker)delegate
             {
                 if (lb_recentTells.Items.Contains(fullName))
@@ -75,6 +80,7 @@ namespace ACT_Chat
 
         private void btn_openChat_Click(object sender, EventArgs e)
         {
+            Debug.Print("btn_openChat_Click");
             var targetedPerson = lb_recentTells.SelectedItem.ToString();
             if (_openChatWindows.ContainsKey(targetedPerson))
             {
@@ -102,11 +108,13 @@ namespace ACT_Chat
 
         private void btn_LoadHistory_Click(object sender, EventArgs e)
         {
+            Debug.Print("btn_LoadHistory_Click");
             ACT_Chat.Instance.Manager.LoadChatTargetsFromFiles(this);
         }
 
         private void cb_MinimizeOnClose_CheckedChanged(object sender, EventArgs e)
         {
+            Debug.Print("cb_MinimizeOnClose_CheckedChanged");
             ACT_Chat.Instance.Invoke((MethodInvoker)delegate
             {
                 ACT_Chat.Instance.config_cb_MinimizeOnClose.Checked = cb_MinimizeOnClose.Checked;
@@ -115,6 +123,7 @@ namespace ACT_Chat
 
         private void ChatList_FormClosing(object sender, FormClosingEventArgs e)
         {
+            Debug.Print("ChatList_FormClosing");
             if (this.Location != null)
             {
                 var simpleString = this.Location.ToSimpleString();
@@ -124,8 +133,8 @@ namespace ACT_Chat
             if (cb_MinimizeOnClose.Checked)
             {
                 ACT_Chat.Instance.OpenChatButton();
-                this.Hide();
-                e.Cancel = true;
+                //this.Hide();
+                //e.Cancel = true;
             }
             FFXIVWindowManager.FocusProcess();
         }

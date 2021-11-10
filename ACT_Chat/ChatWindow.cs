@@ -32,6 +32,7 @@ namespace ACT_Chat
         {
             if (e.KeyChar == (char)Keys.Return)
             {
+                tb_ChatInput.Enabled = false;
                 Clipboard.SetText($"{CommandPrefix} {tb_ChatInput.Text}");
                 e.Handled = true;
                 AttemptSendMessage();
@@ -39,6 +40,7 @@ namespace ACT_Chat
                 tb_ChatInput.Text = "";
 
                 this.BringToFront();
+                tb_ChatInput.Enabled = true;
                 tb_ChatInput.Focus();
             }
         }
