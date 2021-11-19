@@ -76,7 +76,7 @@ namespace ACT_Chat
                 return;
             Debug.Print("SetMessageCount");
 
-            if (this.IsHandleCreated)
+            if (this.IsHandleCreated && !this.IsDisposed)
             {
                 this.Invoke((MethodInvoker)delegate
                 {
@@ -92,12 +92,12 @@ namespace ACT_Chat
         private void ChatButton_FormClosing(object sender, FormClosingEventArgs e)
         {
             Debug.Print("ChatButton_FormClosing");
+            ACT_Chat.Instance.ChatButton = null;
             if (this.Location != null)
             {
                 var simpleString = this.Location.ToSimpleString();
                 ACT_Chat.Instance.config_tb_ChatButtonLoc.Text = simpleString;
             }
-            ACT_Chat.Instance.ChatButton = null;
             this.Dispose();
         }
     }
