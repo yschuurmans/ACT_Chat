@@ -64,12 +64,12 @@
             // 
             // ChatButton
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
+            this.CausesValidation = false;
             this.ClientSize = new System.Drawing.Size(50, 50);
             this.Controls.Add(this.lbl_MessageCount);
             this.Controls.Add(this.btn_OpenChat);
+            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximumSize = new System.Drawing.Size(50, 50);
             this.Name = "ChatButton";

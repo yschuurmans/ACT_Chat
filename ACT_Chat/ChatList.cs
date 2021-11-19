@@ -137,6 +137,9 @@ namespace ACT_Chat
                 //e.Cancel = true;
             }
             FFXIVWindowManager.FocusProcess();
+
+            ACT_Chat.Instance.ChatList = null;
+            this.Dispose();
         }
     }
 }

@@ -4,7 +4,7 @@
 A small for FFXIV to make your life easier when having multiple individual /tell conversations at the same time.
 
 ## Download
-You can download the most recent version of the plugin in the most recently succeeded build. Click the Build button above, select the most recent **green** build, and click the ACT Plugin button on the bottom:
+You can download the most recent version of the plugin in the most recently succeeded release. Click the Releases button on the right to view the release, and click ACT_Chat.zip to download a zip containing the plugin DLL.
 ![github_download_plugin](guide/resources/github_download_plugin.png)
 
 ---
@@ -12,18 +12,15 @@ You can download the most recent version of the plugin in the most recently succ
 Based on https://github.com/FFXIV-ACT/setup-guide
 
 ## Contents
-- [Installing ACT](#installing-act)
-- [Configuring ACT](#configuring-act)
-  - [Running as Admin](#running-as-admin)
-  - [Adding Firewall Exception](#adding-firewall-exception)
-- [FFXIV ACT Plugin](#ffxiv-act-plugin)
-- [OverlayPlugin](#overlayplugin)
-- [Adding an Overlay](#adding-an-overlay)
-  - [Preset Overlays](#preset-overlays)
-  - [Custom Overlays](#custom-overlays)
-- [FFLogs Uploader](#fflogs-uploader)
-  - [Installing the Uploader](#installing-the-uploader)
-  - [Uploading a Log](#uploading-a-log)
+- [ACT_Chat](#act_chat)
+  - [Download](#download)
+  - [Install Guide](#install-guide)
+  - [Contents](#contents)
+  - [Installing ACT](#installing-act)
+  - [Configuring ACT](#configuring-act)
+    - [Running as Admin](#running-as-admin)
+    - [Adding Firewall Exception](#adding-firewall-exception)
+  - [FFXIV ACT Plugin](#ffxiv-act-plugin)
 
 ## Installing ACT
 

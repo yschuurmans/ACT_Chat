@@ -76,14 +76,17 @@ namespace ACT_Chat
                 return;
             Debug.Print("SetMessageCount");
 
-            this.Invoke((MethodInvoker)delegate
+            if (this.IsHandleCreated)
             {
-                lbl_MessageCount.Visible = messageCount > 0;
-                lbl_MessageCount.Text = messageCount.ToString();
-                lastMessageCount = messageCount;
+                this.Invoke((MethodInvoker)delegate
+                {
+                    lbl_MessageCount.Visible = messageCount > 0;
+                    lbl_MessageCount.Text = messageCount.ToString();
+                    lastMessageCount = messageCount;
 
-                this.Refresh();
-            });
+                    this.Refresh();
+                });
+            }
         }
 
         private void ChatButton_FormClosing(object sender, FormClosingEventArgs e)
@@ -94,6 +97,8 @@ namespace ACT_Chat
                 var simpleString = this.Location.ToSimpleString();
                 ACT_Chat.Instance.config_tb_ChatButtonLoc.Text = simpleString;
             }
+            ACT_Chat.Instance.ChatButton = null;
+            this.Dispose();
         }
     }
 }
