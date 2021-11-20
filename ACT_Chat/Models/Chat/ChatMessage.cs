@@ -20,7 +20,7 @@ namespace ACT_Chat.Models.Chat
             string typestring = Type == MessageType.ReceivedTell ? "000d" 
                 : Type == MessageType.SentTell ? "000c" 
                 : "0000";
-            return $"[{TimeStamp}] 00:{typestring}:{Target.FullName}:{Message}";
+            return $"[{TimeStamp.ToString("dd/MM/yyyy HH:mm:ss")}] 00:{typestring}:{Target.FullName}:{Message}";
         }
     }
 }
