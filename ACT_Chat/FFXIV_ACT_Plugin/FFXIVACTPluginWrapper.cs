@@ -16,7 +16,7 @@ namespace ACT_FFXIV.Aetherbridge
 		private FFXIVACTPluginWrapper(IACTWrapper actWrapper)
 		{
 			var plugin = actWrapper.GetACTPlugin("FFXIV_ACT_Plugin",
-				"FFXIV Plugin Started.");
+				"FFXIV_ACT_Plugin Started.");
             _dataRepository = (IDataRepository)plugin.GetType().GetProperty("DataRepository")
                 .GetValue(plugin, null);
         }

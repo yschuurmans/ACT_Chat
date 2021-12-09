@@ -14,7 +14,7 @@ namespace ACT_Chat.Models.Log
             LogLine = logLine;
             TimeStamp = timeStamp;
 
-            if(logLine.Contains(":000d:") || logLine.Contains(":000c:"))
+            if(logLine.ToUpper().Contains(":000D:") || logLine.Contains(":000C:"))
             {
                 Type = LogLineType.TellMessage;
             }

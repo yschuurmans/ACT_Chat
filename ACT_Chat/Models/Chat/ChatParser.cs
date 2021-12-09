@@ -9,7 +9,7 @@ namespace ACT_Chat.Models.Chat
     {
 
 
-        private readonly Regex regex = new Regex(@"\[(.*)\] 00:(....):(.*?):(.*)");
+        private readonly Regex regex = new Regex(@"\[(.*)\] ?[A-Za-z]* 00:(....):(.*?):(.*)");
 
         public ChatParser(Worlds defaultWorld)
         {
